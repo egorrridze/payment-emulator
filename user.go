@@ -1,0 +1,12 @@
+package emulator
+
+type User struct {
+	Id       int    `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	//Id       int    `json:"-" db:"id"`
+	//Name     string `json:"name" binding:"required"`
+	//Username string `json:"username" binding:"required"`
+	//Password string `json:"password" binding:"required"`
+	//
+}
