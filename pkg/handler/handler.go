@@ -28,9 +28,8 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		{
 			payments.POST("/", h.createPayment)
 			payments.POST("/status/:id", h.updateStatus)
-			payments.GET("/status/:id", h.getStatus)
+			payments.GET("/status/:id", h.getStatusById)
 			payments.GET("/", h.getAllPayments)
-			//api.GET("/payment", h.getAllPaymentsByEmail)
 			payments.DELETE("/:id", h.deletePayment)
 		}
 	}

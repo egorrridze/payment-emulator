@@ -1,4 +1,4 @@
-package emulator
+package models
 
 type Payment struct {
 	Id           int     `json:"-" db:"id"`
