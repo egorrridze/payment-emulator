@@ -1,6 +1,13 @@
 # payment-emulator
 Payment emulator API
 
+### Launch
+
+```
+docker build -t emulator .
+docker run -p 8080:8080 -t emulator
+```
+
 ### Endpoints:
 endpoint | method | body | response
 --- | --- | --- | ---
