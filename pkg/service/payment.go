@@ -29,8 +29,8 @@ func (s *PaymentService) GetStatusById(id int) (string, error)  {
 	return s.repo.GetStatusById(id)
 }
 
-func (s *PaymentService) Delete(id int) (int64, error) {
-	return s.repo.Delete(id)
+func (s *PaymentService) Cancel(id int) (int64, error) {
+	return s.repo.Cancel(id)
 }
 
 func (s *PaymentService) UpdateStatus(id int) (int64, string, error){

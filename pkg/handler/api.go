@@ -46,7 +46,7 @@ func (h *Handler) updateStatus (c *gin.Context) {
 		})
 	} else {
 		c.JSON(http.StatusOK, map[string]interface{}{
-			"update status": fmt.Sprintf("updated %b rows", rowsCounter),
+			"update status": fmt.Sprintf("updated %b payments", rowsCounter),
 		})
 	}
 
@@ -105,25 +105,25 @@ func (h *Handler) getAllPayments (c *gin.Context) {
 }
 
 
-func (h *Handler) deletePayment (c *gin.Context) {
+func (h *Handler) cancelPayment (c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {
 		newErrorResponse(c, http.StatusBadRequest, "invalid id param")
 		return
 	}
 
-	rowsCounter, err := h.services.Delete(id)
+	rowsCounter, err := h.services.Cancel(id)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, err.Error())
 		return
 	}
 	if rowsCounter == 0 {
-		newErrorResponse(c, http.StatusBadRequest, fmt.Sprintf("deleted %b rows", rowsCounter))
+		newErrorResponse(c, http.StatusBadRequest, fmt.Sprintf("cancelled %b payments", rowsCounter))
 		return
 	}
 
 	c.JSON(http.StatusOK, map[string]interface{}{
-		"deletion status": fmt.Sprintf("deleted %b rows", rowsCounter),
+		"cancellation status": fmt.Sprintf("cancelled %b payments", rowsCounter),
 	})
 }
 

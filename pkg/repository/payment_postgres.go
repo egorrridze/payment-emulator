@@ -5,6 +5,7 @@ import (
 	emulator "github.com/egorrridze/payment-emulator/models"
 	"github.com/jmoiron/sqlx"
 	"math/rand"
+	"time"
 )
 
 type PaymentPostgres struct {
@@ -23,6 +24,7 @@ func (r *PaymentPostgres) Create(payment emulator.Payment) (int, string, error) 
 
 	var id int
 	var status string
+	rand.Seed(time.Now().Unix())
 	errorChance := rand.Intn(100)
 	if errorChance < 80 {
 		status = "НОВЫЙ"
@@ -64,10 +66,10 @@ func (r *PaymentPostgres) GetStatusById(id int) (string, error)  {
 	return status, err
 }
 
-func (r *PaymentPostgres) Delete(id int) (int64, error) {
+func (r *PaymentPostgres) Cancel(id int) (int64, error) {
 	var rowsCounter int64 = -1
 
-	query := fmt.Sprintf("DELETE FROM %s p WHERE p.id = $1 AND (p.status = 'НОВЫЙ' OR p.status = 'ОШИБКА')", paymentsTable)
+	query := fmt.Sprintf("UPDATE %s SET status = 'ОТМЕНЕН', update_time = NOW() WHERE id = $1 AND (status = 'НОВЫЙ' OR status = 'ОШИБКА')", paymentsTable)
 	res, err := r.db.Exec(query, id)
 	if err == nil {
 		rowsCounter, _ = res.RowsAffected()
@@ -85,7 +87,9 @@ func (r *PaymentPostgres) UpdateStatus(id int) (int64, string,error)  {
 		return 0, "", err
 	}
 
+	rand.Seed(time.Now().Unix())
 	successChance := rand.Intn(100)
+
 	if successChance > 80 || oldStatus == "ОШИБКА" {
 		newStatus = "НЕУСПЕХ"
 	} else {

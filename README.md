@@ -5,8 +5,9 @@ Payment emulator API
 
 ```
 docker build -t emulator .
-docker run -p 8080:8080 -t emulator
+docker run -p 8000:8080 -t emulator
 ```
+You can replace ```8000``` port with any unused on your PC
 
 ### Endpoints
 endpoint | method | body | response
@@ -16,7 +17,7 @@ endpoint | method | body | response
 /payments/status/:id |GET| |current payment status
 /payments?user_id=*id*|POST| |list of users payments
 /payments?user_email=*email*|POST| |list of users payments
-/payments/:id|DELETE| |status of deletion
+/payments/:id|PUT| |status of cancellation
 
 #### Examples
 ![post new payment](1.png)

@@ -14,7 +14,7 @@ type Payment interface {
 	GetAllById(userId int) ([]emulator.Payment, error)
 	GetAllByEmail(userEmail string) ([]emulator.Payment, error)
 	GetStatusById(id int) (string, error)
-	Delete(id int) (int64, error)
+	Cancel(id int) (int64, error)
 	UpdateStatus(id int) (int64, string, error)
 }
 

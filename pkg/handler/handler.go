@@ -30,7 +30,7 @@ func (h *Handler) InitRoutes() *gin.Engine {
 			payments.POST("/status/:id", h.updateStatus)
 			payments.GET("/status/:id", h.getStatusById)
 			payments.GET("/", h.getAllPayments)
-			payments.DELETE("/:id", h.deletePayment)
+			payments.PUT("/:id", h.cancelPayment)
 		}
 	}
 
