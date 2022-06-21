@@ -8,6 +8,7 @@ docker build -t emulator .
 docker run -p 8000:8080 -t emulator
 ```
 You can replace ```8000``` port with any unused on your PC
+Also you can use migration files to run project fully on local machine. Don't forget to uncomment config info and create db 'emulator' in your Postgres.
 
 ### Endpoints
 endpoint | method | body | response
